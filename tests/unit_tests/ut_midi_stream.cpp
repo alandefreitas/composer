@@ -67,7 +67,7 @@ TEST_CASE ("Dispatch MIDI messages to synthesizer") {
         midi_file.joinTracks();
     }
 
-    REQUIRE_THROWS_WITH(dispatch_midi_messages(processor, midi_file[0]), "This MIDI file contains harmonies: not implemented yet.");
+    REQUIRE_THROWS_WITH(dispatch_midi_messages(processor, midi_file[0]), "This MIDI file contains harmonies: not supported.");
 }
 
 TEST_CASE ("smf::MidiMessage to raw message") {

@@ -25,18 +25,19 @@ include(${Catch2_SOURCE_DIR}/contrib/Catch.cmake)
 ### Tests                                           ###
 #######################################################
 
-if (MSVC)
-    # Moving targets into current directory
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR})
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
-endif()
-
 add_executable(ut_melody ut_melody.cpp)
 target_link_libraries(ut_melody PUBLIC composerlib Catch2)
 catch_discover_tests(ut_melody)
 
 add_executable(ut_midi_stream ut_midi_stream.cpp)
 target_link_libraries(ut_midi_stream PUBLIC composerlib Catch2)
-file(COPY resources/twinkle.midi DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/resources")
-file(COPY resources/twinkle_harmonic.mid DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/resources")
+
+set(TEST_RESOURCES
+        resources/twinkle_harmonic.mid
+        resources/twinkle.midi)
+
+if (MSVC)
+    file(COPY ${TEST_RESOURCES} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/resources")
+else()
+    file(COPY ${TEST_RESOURCES} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/resources")
+endif()

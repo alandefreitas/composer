@@ -43,7 +43,7 @@ namespace composer {
     void dispatch_midi_messages(midi_processor &processor, smf::MidiEventList &event_list) {
 
         if(is_harmony(event_list)){
-            throw std::runtime_error("This MIDI file contains harmonies: not implemented yet.");
+            throw std::runtime_error("This MIDI file contains harmonies: not supported.");
         }
 
         event_list.linkNotePairs();
